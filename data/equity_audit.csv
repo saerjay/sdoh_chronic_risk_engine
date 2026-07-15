@@ -1,0 +1,21 @@
+target,group,n,fpr,fnr
+Diabetes Risk,Q1 (Least Disadvantaged),17810,0.0039,0.9735
+Diabetes Risk,Q2,18090,0.0073,0.9628
+Diabetes Risk,Q3,18025,0.0042,0.9702
+Diabetes Risk,Q4 (Most Disadvantaged),17991,0.0053,0.9647
+Stroke Risk,Q1 (Least Disadvantaged),17810,0.0,1.0
+Stroke Risk,Q2,18090,0.0,1.0
+Stroke Risk,Q3,18025,0.0001,1.0
+Stroke Risk,Q4 (Most Disadvantaged),17991,0.0,1.0
+Cancer Prevalence,Q1 (Least Disadvantaged),17810,0.0001,0.9991
+Cancer Prevalence,Q2,18090,0.0,1.0
+Cancer Prevalence,Q3,18025,0.0001,0.9995
+Cancer Prevalence,Q4 (Most Disadvantaged),17991,0.0001,1.0
+Cardiovascular Event,Q1 (Least Disadvantaged),17810,0.0,0.9994
+Cardiovascular Event,Q2,18090,0.0006,0.9989
+Cardiovascular Event,Q3,18025,0.0001,1.0
+Cardiovascular Event,Q4 (Most Disadvantaged),17991,0.0002,0.9989
+Chronic Respiratory Disease,Q1 (Least Disadvantaged),17810,0.0115,0.9402
+Chronic Respiratory Disease,Q2,18090,0.0194,0.9233
+Chronic Respiratory Disease,Q3,18025,0.0101,0.9509
+Chronic Respiratory Disease,Q4 (Most Disadvantaged),17991,0.0119,0.9492
