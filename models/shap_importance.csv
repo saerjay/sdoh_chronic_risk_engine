@@ -1,0 +1,12 @@
+feature,method,importance
+age_code,shap,0.8220132604833855
+bmi,shap,0.19202948768532063
+income_code,shap,0.18197115121259674
+smoker_code,shap,0.15725797904536945
+sex_code,shap,0.1449803934499728
+physical_activity_code,shap,0.10847320145690889
+race_code,shap,0.09918558942624703
+educa_code,shap,0.07940451362040407
+spatial_poor_mental_health,shap,0.06581355736326899
+spatial_lack_insurance,shap,0.042991511077604794
+heavy_drinking_code,shap,0.023090949241122243

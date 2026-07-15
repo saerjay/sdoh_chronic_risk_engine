@@ -1,0 +1,7 @@
+LLCP2024.XPT
+LLCP2024XPT.zip
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+logs/
