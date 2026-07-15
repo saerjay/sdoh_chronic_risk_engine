@@ -1,8 +1,9 @@
 # SDoH Chronic Disease Risk Dashboard
 
-**Live app:** https://sdoh-chronic-risk-engine.streamlit.app/
+**Live app:** [Streamlit App](https://chronic-disease-risk-engine.streamlit.app)
 
-![Dashboard screenshot](docs/screenshot.png)
+<img width="950" height="431" alt="Screenshot 2026-07-15 143758" src="https://github.com/user-attachments/assets/d1a0365d-ef5d-4c09-aaf4-9c151a58bb38" />
+
 
 ## What this is
 
