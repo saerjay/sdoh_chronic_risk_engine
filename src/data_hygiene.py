@@ -10,9 +10,7 @@ logger = logging.getLogger(__name__)
 _DK_REFUSED = [7.0, 9.0]
 
 # Official ANSI/FIPS numeric state codes, as used in BRFSS's _STATE variable.
-# This mapping is a stable federal standard, not derived/estimated data, so
-# it's safe to hardcode -- unlike the ZCTA-to-state guess in
-# generate_spatial_features.py, there's no ambiguity here.
+# This mapping is a stable federal standard.
 _STATE_FIPS_TO_ABBR = {
     1.0: "AL", 2.0: "AK", 4.0: "AZ", 5.0: "AR", 6.0: "CA", 8.0: "CO", 9.0: "CT",
     10.0: "DE", 11.0: "DC", 12.0: "FL", 13.0: "GA", 15.0: "HI", 16.0: "ID",
@@ -30,9 +28,7 @@ def attach_state_abbr(df: pd.DataFrame) -> pd.DataFrame:
     """Maps BRFSS's numeric _STATE (FIPS) code to a 'stateabbr' column, so
     individual BRFSS records can be joined to the state-level PLACES spatial
     data produced by generate_spatial_features.py. Without this, there is no
-    real key linking the two data sources -- previously nothing in the
-    pipeline did this at all, which is why the dashboard's map couldn't be
-    honestly stratified by demographic group.
+    real key linking the two data sources.
     """
     if "_STATE" not in df.columns:
         logger.warning("_STATE column not present in BRFSS extract; cannot attach stateabbr")
@@ -51,9 +47,7 @@ def attach_state_abbr(df: pd.DataFrame) -> pd.DataFrame:
 
 def _mark_invalid_as_nan(series: pd.Series, invalid_codes: list) -> pd.Series:
     """Returns a copy of series with invalid/refused codes replaced by NaN,
-    WITHOUT dropping any rows. Row-dropping is deferred to a single,
-    explicit, logged step so we always know how much data we're losing
-    and why.
+    WITHOUT dropping any rows. 
     """
     return series.where(~series.isin(invalid_codes), np.nan)
 
@@ -64,15 +58,7 @@ def clean_brfss_demographics_and_targets(df: pd.DataFrame) -> pd.DataFrame:
 
     Design principle: compute every column first (setting invalid/refused
     responses to NaN), and only drop rows at the very end, in one explicit,
-    logged step. This avoids two problems in the previous implementation:
-
-    1. Composite (OR-based) targets no longer silently lose rows where
-       one contributing question was skipped but the other still tells us
-       the true label (e.g., COPD=Yes, Asthma=skipped -> target is still
-       known to be 1, not dropped).
-    2. We can report exactly how many respondents were lost to missingness
-       at each stage, so downstream users can judge whether non-response
-       bias is a concern.
+    logged step.
     """
     logger.info("Starting BRFSS cleaning on %d raw rows", len(df))
     cleaned_df = df.copy()
@@ -81,12 +67,7 @@ def clean_brfss_demographics_and_targets(df: pd.DataFrame) -> pd.DataFrame:
 
     # --- DIABETE4 is NOT binary like the other single-question targets --
     # it has four valid answer codes (1=Yes, 2=Yes-during-pregnancy-only,
-    # 3=No, 4=No/pre-diabetes), not just 1/2. An earlier version of this
-    # function mapped it with the same {1.0: 1, 2.0: 0} used for the
-    # genuinely-binary targets below, which silently turned every "No"
-    # (code 3 -- the most common answer, ~85-90% of respondents) into NaN,
-    # then dropped at listwise deletion. That one bug accounted for the
-    # overwhelming majority of a reported 85% row loss. Gestational-only
+    # 3=No, 4=No/pre-diabetes), not just 1/2. Gestational-only
     # diabetes (code 2) is coded as 0 here to match CDC's own "diagnosed
     # diabetes" prevalence definition (DIABETE4==1), which excludes it as
     # not indicating chronic/ongoing diabetes.
